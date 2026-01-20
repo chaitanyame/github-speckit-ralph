@@ -1,0 +1,43 @@
+{
+  "projectName": "Example Project",
+  "description": "A sample project to demonstrate Ralph",
+  "branchName": "ralph/example-feature",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Create basic HTML structure",
+      "priority": 1,
+      "description": "Set up a basic HTML5 page with header, main, and footer sections",
+      "acceptanceCriteria": [
+        "Valid HTML5 doctype",
+        "Semantic HTML elements used",
+        "Page has title and meta viewport"
+      ],
+      "passes": false
+    },
+    {
+      "id": "US-002",
+      "title": "Add CSS styling",
+      "priority": 2,
+      "description": "Create a CSS file with basic styling for the page",
+      "acceptanceCriteria": [
+        "External CSS file linked",
+        "Basic typography styles applied",
+        "Responsive layout using flexbox or grid"
+      ],
+      "passes": false
+    },
+    {
+      "id": "US-003",
+      "title": "Add interactive JavaScript",
+      "priority": 3,
+      "description": "Add JavaScript for basic interactivity",
+      "acceptanceCriteria": [
+        "External JS file linked",
+        "At least one interactive element (button/form)",
+        "No console errors"
+      ],
+      "passes": false
+    }
+  ]
+}

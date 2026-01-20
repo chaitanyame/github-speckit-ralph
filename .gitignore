@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Generated files
+prd.json
+progress.txt
+.ralph-last-branch
+
+# Archives
+archive/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

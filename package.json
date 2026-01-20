@@ -1,0 +1,16 @@
+{
+  "name": "copilot-ralph-enhanced",
+  "version": "0.1.0",
+  "description": "Interactive PRD creation + Ralph loop for GitHub Copilot CLI",
+  "type": "module",
+  "scripts": {
+    "setup": "bash setup.sh",
+    "create-prd": "node create-prd.js",
+    "ralph": "bash ralph.sh"
+  },
+  "keywords": ["copilot", "ai", "automation", "prd"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
