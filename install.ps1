@@ -31,12 +31,38 @@ $Files = @(
     "prompt.md"
 )
 
+# Spec Kit integration files (GitHub Copilot)
+$SpecKitFiles = @(
+    ".github/agents/speckit.converttaskstoprd.md",
+    ".github/prompts/speckit.converttaskstoprd.md"
+)
+
 Write-Host "📦 Downloading Ralph framework files..." -ForegroundColor Yellow
 Write-Host ""
 
 foreach ($File in $Files) {
     Write-Host "  ↓ $File" -ForegroundColor Gray
     try {
+        Invoke-WebRequest -Uri "$Repo/$File" -OutFile $File -ErrorAction Stop
+    } catch {
+        Write-Host "  ✗ Failed to download $File" -ForegroundColor Red
+        Write-Host "  Error: $($_.Exception.Message)" -ForegroundColor Red
+        exit 1
+    }
+}
+
+Write-Host ""
+Write-Host "📦 Downloading Spec Kit integration files..." -ForegroundColor Yellow
+Write-Host ""
+
+foreach ($File in $SpecKitFiles) {
+    Write-Host "  ↓ $File" -ForegroundColor Gray
+    try {
+        # Create directory if it doesn't exist
+        $Dir = Split-Path $File -Parent
+        if ($Dir -and -not (Test-Path $Dir)) {
+            New-Item -ItemType Directory -Path $Dir -Force | Out-Null
+        }
         Invoke-WebRequest -Uri "$Repo/$File" -OutFile $File -ErrorAction Stop
     } catch {
         Write-Host "  ✗ Failed to download $File" -ForegroundColor Red

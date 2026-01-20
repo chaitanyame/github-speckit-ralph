@@ -61,6 +61,10 @@ uvx --from git+https://github.com/github/spec-kit.git specify init my-project
 # Then use: /speckit.specify, /speckit.plan, /speckit.tasks
 
 # 3. Convert Spec Kit output to Ralph format
+# Option A: Using Spec Kit slash command (recommended)
+/speckit.converttaskstoprd specs/001-my-project
+
+# Option B: Using Node.js directly
 npm run convert specs/001-my-project
 
 # 4. Run Ralph autonomous execution
@@ -118,6 +122,23 @@ In your AI editor (VS Code, Cursor, etc.), use Spec Kit commands:
 All files go to `specs/###-project-name/` folder.
 
 ### Step 2: Convert to Ralph Format
+
+**Option A: Using Spec Kit Integration (Recommended)**
+
+If using GitHub Copilot in VS Code, you now have the `/speckit.converttaskstoprd` command:
+
+```text
+/speckit.converttaskstoprd specs/001-restaurant-chatbot
+```
+
+This command:
+- ✅ Parses `spec.md` for user stories and acceptance criteria
+- ✅ Maps tasks from `tasks.md` to user stories via `[US1]`, `[US2]` labels  
+- ✅ Auto-detects quality check command from tech stack
+- ✅ Generates `prd.json` in Ralph's exact format
+- ✅ Works directly in your editor chat
+
+**Option B: Using Node.js Script**
 
 ```bash
 # Convert Spec Kit output to prd.json (AI-powered via Copilot CLI)

@@ -31,6 +31,12 @@ FILES=(
   "prompt.md"
 )
 
+# Spec Kit integration files (GitHub Copilot)
+SPECKIT_FILES=(
+  ".github/agents/speckit.converttaskstoprd.md"
+  ".github/prompts/speckit.converttaskstoprd.md"
+)
+
 echo "📦 Downloading Ralph framework files..."
 echo ""
 
@@ -38,6 +44,22 @@ for file in "${FILES[@]}"; do
   echo "  ↓ $file"
   if curl -fsSL "$REPO/$file" -o "$file"; then
     chmod +x "$file" 2>/dev/null || true
+  else
+    echo "  ✗ Failed to download $file"
+    exit 1
+  fi
+done
+
+echo ""
+echo "📦 Downloading Spec Kit integration files..."
+echo ""
+
+for file in "${SPECKIT_FILES[@]}"; do
+  echo "  ↓ $file"
+  # Create directory if it doesn't exist
+  mkdir -p "$(dirname "$file")"
+  if curl -fsSL "$REPO/$file" -o "$file"; then
+    : # Success
   else
     echo "  ✗ Failed to download $file"
     exit 1
