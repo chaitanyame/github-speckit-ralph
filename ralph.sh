@@ -3,12 +3,69 @@
 # An autonomous AI agent loop that runs Copilot CLI repeatedly until all PRD items are complete.
 # Based on Geoffrey Huntley's Ralph pattern: https://ghuntley.com/ralph/
 #
-# Usage: ./ralph.sh [max_iterations]
+# Usage: ./ralph.sh [options]
+# Options:
+#   -m, --model MODEL          AI model to use (default: gpt-4)
+#   -i, --max-iterations N     Maximum iterations (default: 10)
+#   -t, --temperature N        Creativity level 0.0-1.0 (default: 0.7)
+#   -h, --help                 Show this help message
+#
+# Environment variables (overridden by CLI options):
+#   COPILOT_MODEL, MAX_ITERATIONS, COPILOT_TEMPERATURE
 
 set -e
 
-MAX_ITERATIONS=${1:-10}
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Default values (lowest priority)
+DEFAULT_MAX_ITERATIONS=10
+DEFAULT_MODEL="gpt-4"
+DEFAULT_TEMPERATURE=0.7
+
+# Initialize with environment variables (medium priority)
+MAX_ITERATIONS=${MAX_ITERATIONS:-$DEFAULT_MAX_ITERATIONS}
+MODEL=${COPILOT_MODEL:-$DEFAULT_MODEL}
+TEMPERATURE=${COPILOT_TEMPERATURE:-$DEFAULT_TEMPERATURE}
+
+# Parse command-line arguments (highest priority)
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -m|--model)
+            MODEL="$2"
+            shift 2
+            ;;
+        -i|--max-iterations)
+            MAX_ITERATIONS="$2"
+            shift 2
+            ;;
+        -t|--temperature)
+            TEMPERATURE="$2"
+            shift 2
+            ;;
+        -h|--help)
+            echo "Ralph for GitHub Copilot CLI"
+            echo ""
+            echo "Usage: $0 [options]"
+            echo ""
+            echo "Options:"
+            echo "  -m, --model MODEL          AI model to use (default: gpt-4)"
+            echo "  -i, --max-iterations N     Maximum iterations (default: 10)"
+            echo "  -t, --temperature N        Creativity level 0.0-1.0 (default: 0.7)"
+            echo "  -h, --help                 Show this help message"
+            echo ""
+            echo "Examples:"
+            echo "  $0"
+            echo "  $0 --model claude-3.5-sonnet --max-iterations 20"
+            echo "  $0 -m gpt-4 -i 15 -t 0.5"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
 PRD_FILE="prd.json"
 PROGRESS_FILE="progress.txt"
 ARCHIVE_DIR="archive"
@@ -102,6 +159,8 @@ get_current_story() {
 echo ""
 echo -e "${BOLD}${CYAN}Ralph for GitHub Copilot CLI${NC}"
 echo -e "${CYAN}----------------------------${NC}"
+echo -e "Model: ${YELLOW}$MODEL${NC}"
+echo -e "Temperature: ${YELLOW}$TEMPERATURE${NC}"
 echo -e "Max iterations: ${YELLOW}$MAX_ITERATIONS${NC}"
 echo -e "Remaining stories: ${YELLOW}$(count_remaining)${NC}"
 echo ""
@@ -120,7 +179,7 @@ for i in $(seq 1 $MAX_ITERATIONS); do
 
     # Run copilot with the prompt
     # Using -p for programmatic mode and --allow-all-tools for autonomous operation
-    OUTPUT=$(copilot -p "$PROMPT" --allow-all-tools 2>&1 | tee /dev/stderr) || true
+    OUTPUT=$(copilot -m "$MODEL" --temperature "$TEMPERATURE" -p "$PROMPT" --allow-all-tools 2>&1 | tee /dev/stderr) || true
 
     # Check for completion signal
     if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then

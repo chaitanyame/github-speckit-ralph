@@ -1,14 +1,21 @@
 {
-  "name": "copilot-ralph-enhanced",
-  "version": "0.1.0",
-  "description": "Interactive PRD creation + Ralph loop for GitHub Copilot CLI",
+  "name": "copilot-ralph-speckit",
+  "version": "1.0.0",
+  "description": "GitHub Spec Kit + Ralph autonomous execution for AI-powered development",
   "type": "module",
   "scripts": {
-    "setup": "bash setup.sh",
-    "create-prd": "node create-prd.js",
-    "ralph": "bash ralph.sh"
+    "setup": "node -e \"require('child_process').execSync(process.platform === 'win32' ? 'powershell -File setup.ps1' : 'bash setup.sh', {stdio: 'inherit'})\"",
+    "setup:win": "powershell -File setup.ps1",
+    "setup:unix": "bash setup.sh",
+    "convert": "node speckit-to-prd.js",
+    "ralph": "node -e \"require('child_process').execSync(process.platform === 'win32' ? 'powershell -File ralph.ps1' : 'bash ralph.sh', {stdio: 'inherit'})\"",
+    "ralph:win": "powershell -File ralph.ps1",
+    "ralph:unix": "bash ralph.sh",
+    "start": "node -e \"require('child_process').execSync(process.platform === 'win32' ? 'powershell -File start.ps1' : 'bash start.sh', {stdio: 'inherit'})\"",
+    "start:win": "powershell -File start.ps1",
+    "start:unix": "bash start.sh"
   },
-  "keywords": ["copilot", "ai", "automation", "prd"],
+  "keywords": ["copilot", "ai", "automation", "spec-kit", "ralph", "autonomous-development"],
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"

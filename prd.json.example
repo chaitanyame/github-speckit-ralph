@@ -1,41 +1,76 @@
 {
-  "projectName": "Example Project",
-  "description": "A sample project to demonstrate Ralph",
-  "branchName": "ralph/example-feature",
+  "projectName": "Task Manager",
+  "description": "Simple task management app with tags and due dates for personal productivity",
+  "branchName": "ralph/task-manager",
+  "qualityCheck": "npm test",
   "userStories": [
     {
       "id": "US-001",
-      "title": "Create basic HTML structure",
+      "title": "Create task with title and description",
       "priority": 1,
-      "description": "Set up a basic HTML5 page with header, main, and footer sections",
+      "description": "Users can add new tasks with a title and optional description to track their work",
       "acceptanceCriteria": [
-        "Valid HTML5 doctype",
-        "Semantic HTML elements used",
-        "Page has title and meta viewport"
+        "Form accepts task title (required field)",
+        "Form accepts task description (optional field)",
+        "Task is saved to local storage",
+        "User sees confirmation message after creation",
+        "Form clears after successful submission"
       ],
       "passes": false
     },
     {
       "id": "US-002",
-      "title": "Add CSS styling",
+      "title": "Mark tasks as complete",
       "priority": 2,
-      "description": "Create a CSS file with basic styling for the page",
+      "description": "Users can mark tasks as done to track their progress",
       "acceptanceCriteria": [
-        "External CSS file linked",
-        "Basic typography styles applied",
-        "Responsive layout using flexbox or grid"
+        "Checkbox appears next to each task",
+        "Clicking checkbox toggles task completion status",
+        "Completed tasks show visual indication (strikethrough)",
+        "Completion status persists in local storage",
+        "Can toggle between complete and incomplete"
       ],
       "passes": false
     },
     {
       "id": "US-003",
-      "title": "Add interactive JavaScript",
+      "title": "Add tags to tasks",
       "priority": 3,
-      "description": "Add JavaScript for basic interactivity",
+      "description": "Users can categorize tasks using tags for better organization",
       "acceptanceCriteria": [
-        "External JS file linked",
-        "At least one interactive element (button/form)",
-        "No console errors"
+        "Task form includes tag input field",
+        "Multiple tags can be added (comma-separated)",
+        "Tags display as colored badges on tasks",
+        "Tags persist with task data",
+        "Empty tags are ignored"
+      ],
+      "passes": false
+    },
+    {
+      "id": "US-004",
+      "title": "Filter tasks by tag",
+      "priority": 4,
+      "description": "Users can filter the task list to show only tasks with specific tags",
+      "acceptanceCriteria": [
+        "Filter dropdown shows all available tags",
+        "Selecting a tag filters the task list",
+        "Only tasks with selected tag are visible",
+        "'All' option shows all tasks",
+        "Filter state persists across page refreshes"
+      ],
+      "passes": false
+    },
+    {
+      "id": "US-005",
+      "title": "Set and display due dates",
+      "priority": 5,
+      "description": "Users can assign due dates to tasks to manage deadlines",
+      "acceptanceCriteria": [
+        "Task form includes date picker",
+        "Due date displays next to task title",
+        "Overdue tasks highlighted in red",
+        "Tasks due today highlighted in yellow",
+        "Due date persists with task data"
       ],
       "passes": false
     }

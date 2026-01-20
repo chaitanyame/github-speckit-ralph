@@ -42,6 +42,16 @@ else
     ALL_GOOD=false
 fi
 
+# Check uvx (for Spec Kit)
+echo -n "Checking uvx (Spec Kit)... "
+if command -v uvx &> /dev/null; then
+    echo -e "${GREEN}✓ found${NC}"
+else
+    echo -e "${YELLOW}⚠ not found (optional)${NC}"
+    echo "  Install: pip install uv"
+    echo "  Then you can use Spec Kit for spec creation"
+fi
+
 # Check Node.js
 echo -n "Checking Node.js... "
 if command -v node &> /dev/null; then
