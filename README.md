@@ -6,6 +6,39 @@ Use [GitHub Spec Kit](https://github.com/github/spec-kit) to create detailed spe
 
 ---
 
+## Installation
+
+### Quick Install (Recommended)
+
+Run this one-liner in your **existing project directory**:
+
+**Unix/Mac/Linux:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/chaitanyame/github-speckit-ralph/main/install.sh | bash
+```
+
+**Windows PowerShell:**
+```powershell
+irm https://raw.githubusercontent.com/chaitanyame/github-speckit-ralph/main/install.ps1 | iex
+```
+
+This will:
+- Download all Ralph framework files
+- Add npm scripts to your package.json
+- Update .gitignore with Ralph-specific entries
+- Display next steps
+
+### Manual Install
+
+Clone and copy files:
+```bash
+git clone https://github.com/chaitanyame/github-speckit-ralph.git /tmp/ralph
+cd your-project
+cp /tmp/ralph/{ralph.sh,ralph.ps1,setup.sh,setup.ps1,start.sh,start.ps1,speckit-to-prd.js,prompt.md} .
+```
+
+---
+
 ## Why This Integration?
 
 - ✅ **Spec Kit**: Mature, conversational spec creation with multi-agent support
