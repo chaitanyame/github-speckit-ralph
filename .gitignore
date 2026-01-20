@@ -1,13 +1,20 @@
 # Dependencies
 node_modules/
 
-# Generated files
+# Ralph framework outputs (generated during use)
+archive/
+.tmp/
 prd.json
 progress.txt
 .ralph-last-branch
 
-# Archives
-archive/
+# Test files (development only)
+test-converter.js
+specs/
+
+# Build outputs
+dist/
+build/
 
 # OS files
 .DS_Store
